@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PS4 Mastery - موقع الألعاب والتقييم</title>
+<style>
+  /* ألوان متدرجة جميلة */
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1f4037, #99f2c8);
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    background: rgba(0,0,0,0.6);
+    padding: 15px 20px;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  nav {
+    display: flex;
+    justify-content: center;
+    background: rgba(0,0,0,0.5);
+  }
+  nav button {
+    background: transparent;
+    border: none;
+    padding: 15px 25px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background 0.3s;
+    position: relative;
+  }
+  nav button:hover {
+    background: rgba(255,255,255,0.15);
+  }
+  nav button:focus {
+    outline: none;
+    background: rgba(255,255,255,0.25);
+  }
+  main {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    background: rgba(0,0,0,0.3);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  section {
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    padding: 20px;
+    flex: 1 1 300px;
+    max-width: 350px;
+    min-height: 400px;
+    position: relative;
+  }
+  section h2 {
+    margin-top: 0;
+    text-align: center;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 4px #000;
+  }
+  .item {
+    background: rgba(0,0,0,0.4);
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    position: relative;
+  }
+  .item h3 {
+    margin: 0 0 8px 0;
+  }
+  .item button {
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: #fff;
+    padding: 7px 12px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+  }
+  .item button:hover {
+    background: rgba(255,255,255,0.4);
+  }
+  .like-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    user-select: none;
+    color: #ff4757;
+    transition: color 0.3s;
+  }
+  .like-btn.liked {
+    color: #ff6b81;
+  }
+  /* زر شفاف في أسفل كل قسم */
+  section .action-btn {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  section:hover .action-btn {
+    opacity: 1;
+  }
+  /* صفحة تسجيل الدخول */
+  #loginPage {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  #loginBox {
+    background: #222;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px #000;
+    text-align: center;
+    width: 300px;
+  }
+  #loginBox h2 {
+    margin-bottom: 20px;
+  }
+  #loginBox input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: none;
+    font-size: 1rem;
+  }
+  #loginBox button {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    background: #ff4757;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.1rem;
+  }
+  #logoutBtn {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: #ff4757;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 12px;
+    z-index: 110;
+  }
+</style>
+</head>
+<body>
+
+<header>PS4 Mastery - موقع الألعاب والتقييم</header>
+
+<nav>
+  <button data-section="games">الألعاب</button>
+  <button data-section="news">الأخبار</button>
+  <button data-section="free">الألعاب المجانية</button>
+</nav>
+
+<main>
+  <!-- قسم الألعاب -->
+  <section id="games" class="active-section">
+    <h2>الألعاب</h2>
+    <div class="item" data-id="game1">
+      <span class="like-btn" title="أعجبني">❤</span>
+      <h3>Ghost of Tsushima</h3>
+      <button class="review-btn">ما هو رأيك؟</button>
+    </div>
+    <div class="item" data-id="game2">
+      <span class="like-btn" title="أعجبني">❤</span>
+      <h3>FIFA 22</h3>
+      <button class="review-btn">ما هو رأيك؟</button>
+    </div>
+    <div class="item" data-id="game3">
+      <span class="like-btn" title="أعجبني">❤</span>
+      <h3>Red Dead Redemption 2</h3>
+      <button class="review-btn">ما هو رأيك؟</button>
+    </div>
+    <button class="action-btn">عرض المزيد من الألعاب</button>
+  </section>
+
+  <!-- قسم الأخبار -->
+  <section id="news" style="display:none;">
+    <h2>الأخبار</h2>
+    <div class="item" data-id="news1">
+      <span class="like-btn" title="أعجبني">❤</span>
+      <h3>تحديث جديد لـ FIFA 22 يصدر الأسبوع القادم</h3>
+      <button class="review-btn">ما هو رأيك؟</button>
+    </div>
+    <div class="item" data-id="news2">
+      <span class="like-btn" title="أعجبني">❤</span>
+      <h3>إعلان عن لعبة مجانية جديدة على PS4</h3>
+      <button class="review-btn">ما هو رأيك؟</button>
+    </div>
+    <button class="action-btn">المزيد من الأخبار</button>
+  </section>
+
+  <!-- قسم الألعاب المجانية -->
+  <section id="free" style="display:none;">
+    <h2>الألعاب المجانية</h2>
+    <div class="item" data-id="free1">
+      <span class="like-btn" title="أعجبني">❤</span>
+      <h3>Fortnite</h3>
+      <button class="review-btn">ما هو رأيك؟</button>
+    </div>
+    <div class="item" data-id="free2">
+      <span class="like-btn" title="أعجبني">❤</span>
+      <h3>Apex Legends</h3>
+      <button class="review-btn">ما هو رأيك؟</button>
+    </div>
+    <button class="action-btn">المزيد من الألعاب المجانية</button>
+  </section>
+</main>
+
+<button id="logoutBtn" style="display:none;">تسجيل الخروج</button>
+
+<!-- صفحة تسجيل الدخول -->
+<div id="loginPage" style="display:none;">
+  <div id="loginBox">
+    <h2>تسجيل الدخول</h2>
+    <input type="text" id="username" placeholder="اكتب اسم المستخدم" />
+    <input type="password" id="password" placeholder="كلمة المرور" />
+    <button id="loginBtn">دخول</button>
+  </div>
+</div>
+
+<script>
+  // تخزين المستخدم (بسيط جدًا) باستخدام localStorage
+  const loginPage = document.getElementById('loginPage');
+  const loginBtn = document.getElementById('loginBtn');
+  const logoutBtn = document.getElementById('logoutBtn');
+  const usernameInput = document.getElementById('username');
+  const passwordInput = document.getElementById('password');
+
+  function isLoggedIn() {
+    return localStorage.getItem('ps4User') !== null;
+  }
+  function showLogin(show) {
+    loginPage.style.display = show ? 'flex' : 'none';
+    logoutBtn.style.display = show ? 'none' : 'block';
+  }
+  function login(user) {
+    localStorage.setItem('ps4User', JSON.stringify(user));
+    showLogin(false);
+  }
+  function logout() {
+    localStorage.removeItem('ps4User');
+    showLogin(true);
+  }
+
+  // تفعيل تسجيل دخول تلقائي أو عرض الصفحة
+  if (!isLoggedIn()) {
+    showLogin(true);
+  } else {
+    showLogin(false);
+  }
+
+  loginBtn.addEventListener('click', () => {
+    const user = usernameInput.value.trim();
+    const pass = passwordInput.value.trim();
+    if (user && pass) {
+      login({ username: user });
+      alert(`أهلاً بك يا ${user}!`);
+    } else {
+      alert('يرجى كتابة اسم المستخدم وكلمة المرور.');
+    }
+  });
+
+  logoutBtn.addEventListener('click', () => {
+    logout();
+    alert('تم تسجيل الخروج.');
+  });
+
+  // التنقل بين الأقسام
+  const navButtons = document.querySelectorAll('nav button');
+  const sections = document.querySelectorAll('main section');
+  navButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-section');
+      sections.forEach(sec => {
+        sec.style.display = sec.id === target ? 'block' : 'none';
+      });
+    });
+  });
+
+  // لايكات وتقييمات
+  const likeButtons = document.querySelectorAll('.like-btn');
+  likeButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (!isLoggedIn()) {
+        alert('يرجى تسجيل الدخول أولاً لتستطيع الإعجاب.');
+        showLogin(true);
+        return;
+      }
+      btn.classList.toggle('liked');
+    });
+  });
+
+  // زر "ما هو رأيك؟"
+  const reviewButtons = document.querySelectorAll('.review-btn');
+  reviewButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (!isLoggedIn()) {
+        alert('يرجى تسجيل الدخول أولاً لكتابة رأيك.');
+        showLogin(true);
+        return;
+      }
+      const item = btn.closest('.item');
+      const name = item.querySelector('h3').textContent;
+      const user = JSON.parse(localStorage.getItem('ps4User'));
+      const review = prompt(`اكتب رأيك عن "${name}":`, '');
+      if (review && review.trim().length > 0) {
+        alert(`شكراً لك، ${user.username} على رأيك!`);
+        // هنا تقدر تضيف الكود لحفظ التقييم في قاعدة بيانات أو localStorage
+      }
+    });
+  });
+
+  // خلفية متغيرة كل 10 ثواني
+  const backgrounds = [
+    'linear-gradient(135deg, #1f4037, #99f2c8)',
+    'linear-gradient(135deg, #355c7d, #6c5b7b, #c06c84)',
+    'linear-gradient(135deg, #0f2027, #203a43, #2c5364)',
+    'linear-gradient(135deg, #614385, #516395)',
+    'linear-gradient(135deg, #1e3c72, #2a5298)',
+  ];
+  let bgIndex = 0;
+  setInterval(() => {
+    bgIndex = (bgIndex + 1) % backgrounds.length;
+    document.body.style.background = backgrounds[bgIndex];
+  }, 10000);
+</script>
+
+</body>
+</html>
